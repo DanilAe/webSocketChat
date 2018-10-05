@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     websocket.cpp \
-    dialognickname.cpp
+    dialognickname.cpp \
+    helpers.cpp
 
 HEADERS += \
         mainwindow.h \
     websocket.h \
-    dialognickname.h
+    dialognickname.h \
+    helpers.h
 
 FORMS += \
         mainwindow.ui \

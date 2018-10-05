@@ -2,6 +2,7 @@
 #define DIALOGNICKNAME_H
 
 #include <QDialog>
+#include <QEventLoop>
 
 namespace Ui {
 	class DIalogNickName;
@@ -15,7 +16,7 @@ class DIalogNickName : public QDialog
 		explicit DIalogNickName(QWidget *parent = 0);
 		~DIalogNickName();
 
-	private slots:
+		QString getNickName();
 
 	private:
 		Ui::DIalogNickName *ui;

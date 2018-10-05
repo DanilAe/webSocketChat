@@ -51,10 +51,13 @@
       </rect>
      </property>
      <property name="placeholderText">
-      <string>Write a your name</string>
+      <string>Write a message</string>
      </property>
     </widget>
     <widget class="QPushButton" name="buttonOk">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>330</x>

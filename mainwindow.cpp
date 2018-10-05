@@ -1,20 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QAction>
-#include <QMessageBox>
-
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
+	dialog = new DIalogNickName(this);
 	webSock = new webSocket(QUrl("ws://62.109.21.96/ws/"), this);
-	this->setWindowIcon(QIcon(":/Ico.png"));
 	connect(webSock, SIGNAL(onLogined(bool)), this, SLOT(onLogined(bool)));
 	connect(webSock, SIGNAL(onNewMessage(QJsonDocument)), this, SLOT(onNewMessage(QJsonDocument)));
 	connect(webSock, SIGNAL(connected()), this, SLOT(onConnected()));
 	connect(webSock, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+	this->setWindowIcon(QIcon(":/Ico.png"));
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +23,10 @@ MainWindow::~MainWindow()
 void MainWindow::onConnected()
 {
 	ui->statusBar->showMessage("Connected!", 20000);
+	QString name;
+	DIalogNickName* dialog = new DIalogNickName(this);
+	name = dialog->getNickName();
+	webSock->loginIn(name);
 }
 
 void MainWindow::onDisconnected()
@@ -38,12 +40,7 @@ void MainWindow::on_buttonOk_clicked()
 		return;
 	if(webSock->isConnected())
 	{
-		if(webSock->logined())
-		{
-			webSock->sendMessage(ui->textEdit->toPlainText().trimmed());
-		}
-		else
-			webSock->loginIn(ui->textEdit->toPlainText().trimmed());
+		webSock->sendMessage(ui->textEdit->toPlainText().trimmed());
 		ui->textEdit->setPlainText("");
 	}
 	else
@@ -54,15 +51,14 @@ void MainWindow::on_buttonOk_clicked()
 
 void MainWindow::onNewMessage(QJsonDocument doc)
 {
-	QJsonArray arr = doc.object().value("messages").toArray();
+	QJsonArray arr = doc.object().value("body").toObject().value("messages").toArray();
 	for(int i = 0; i < arr.count(); i++)
 	{
-		QJsonObject obj;
-		obj = arr.at(i).toObject().value("value").toObject();
+		QJsonObject obj = arr.at(i).toObject();
 		QString userName = obj.value("username").toString();
 		QString messageText = obj.value("message").toString();
-		QString text = userName + ": " + messageText.trimmed();
-		ui->listMessages->append(text);
+		int timeStamp = obj.value("dateTime").toInt();
+		ui->listMessages->append(Helpers::getActionHtml(Helpers::getDateTimeS(timeStamp), userName, messageText));
 	}
 }
 
@@ -70,8 +66,13 @@ void MainWindow::onLogined(bool b)
 {
 	if(b)
 	{
-		ui->textEdit->setPlaceholderText("Write a message");
+		ui->buttonOk->setEnabled(true);
 	}
 	else
+	{
 		QMessageBox::critical(this, "Fault", "Error during registration, try another nickname.");
+		QString name;
+		name = dialog->getNickName();
+		webSock->loginIn(name);
+	}
 }

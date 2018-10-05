@@ -5,7 +5,13 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <websocket.h>
+#include <QMessageBox>
+#include <QDateTime>
+
+#include "websocket.h"
+#include "helpers.h"
+#include "dialognickname.h"
+
 
 namespace Ui {
 	class MainWindow;
@@ -16,6 +22,7 @@ class MainWindow : public QMainWindow
 		Q_OBJECT
 
 		webSocket* webSock;
+		DIalogNickName* dialog;
 
 	public:
 		explicit MainWindow(QWidget *parent = 0);
@@ -40,8 +47,6 @@ class MainWindow : public QMainWindow
 		{
 			return b ? "true" : "false";
 		}
-
-
 };
 
 #endif // MAINWINDOW_H
