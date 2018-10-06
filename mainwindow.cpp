@@ -1,18 +1,24 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDesktopWidget>
+
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
+
 	dialog = new DIalogNickName(this);
+
 	webSock = new webSocket(QUrl("ws://62.109.21.96/ws/"), this);
 	connect(webSock, SIGNAL(onLogined(bool)), this, SLOT(onLogined(bool)));
 	connect(webSock, SIGNAL(onNewMessage(QJsonDocument)), this, SLOT(onNewMessage(QJsonDocument)));
 	connect(webSock, SIGNAL(connected()), this, SLOT(onConnected()));
 	connect(webSock, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
 	this->setWindowIcon(QIcon(":/Ico.png"));
+	this->setGeometry(QApplication::desktop()->width() / 2 - this->width() / 2 , QApplication::desktop()->height() / 2 - this->height() / 2, 0, 0);
 }
 
 MainWindow::~MainWindow()
