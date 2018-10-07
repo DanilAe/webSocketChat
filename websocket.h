@@ -62,7 +62,9 @@ class webSocket : public QObject
 		void getConnect()
 		{
 			if(!isConnected())
+			{
 				webSock->open(m_url);
+			}
 		}
 
 };

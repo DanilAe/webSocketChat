@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QDesktopWidget>
 
-
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
@@ -38,6 +37,7 @@ void MainWindow::onConnected()
 void MainWindow::onDisconnected()
 {
 	ui->statusBar->showMessage("Connecting...");
+	QMessageBox::critical(this, "Warning!", "A web socket is not connected");
 }
 
 void MainWindow::on_buttonOk_clicked()
