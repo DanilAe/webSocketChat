@@ -76,7 +76,7 @@ void MainWindow::onLogined(bool b)
 	}
 	else
 	{
-		QMessageBox::critical(this, "Fault", "Error during registration, try another nickname.");
+		QMessageBox::critical(this, "Fault", "Error during authorization, try another nickname.");
 		QString name;
 		name = dialog->getNickName();
 		webSock->loginIn(name);
