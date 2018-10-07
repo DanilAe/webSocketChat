@@ -7,7 +7,6 @@
 class Helpers
 {
 	public:
-		Helpers();
 
 		static QDateTime getDateTimeS(int timeStamp);
 

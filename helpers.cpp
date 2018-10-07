@@ -1,11 +1,5 @@
 #include "helpers.h"
 
-
-Helpers::Helpers()
-{
-
-}
-
 QDateTime Helpers::getDateTimeS(int timeStamp)
 {
 	QDateTime dateTime;
