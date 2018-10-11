@@ -6,7 +6,6 @@ webSocket::webSocket(const QUrl url, QObject *parent) : QObject(parent)
 	connect(webSock, SIGNAL(connected()), this, SLOT(onConnected()));
 	connect(webSock, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
 	connect(webSock, SIGNAL(textMessageReceived(QString)), this, SLOT(onReadyRead(QString)));
-	connect(webSock, SIGNAL(pong(quint64,QByteArray)), this, SLOT(onPong(quint64,QByteArray)));
 	webSock->open(url);
 	m_url = url;
 }
