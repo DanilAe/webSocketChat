@@ -55,6 +55,8 @@ class webSocket : public QObject
 
 		void onDisconnected();
 
+		void onPong(quint64, QByteArray);
+
 	public slots:
 
 		void sendMessage(QString message);
