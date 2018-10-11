@@ -9,7 +9,7 @@ QDateTime Helpers::getDateTimeS(int timeStamp)
 
 QString Helpers::getActionHtml(QString dateTime, QString usrName, QString msgText)
 {
-	QString html = QObject::tr("<font size=\"3\">%0: %1</font><br><font size=\"1\" color=\"gray\">%2</font>")
+	QString html = QObject::tr("<div><font size=\"3\">%0: %1</font><br><font size=\"1\" color=\"gray\">%2</font></div>")
 			.arg(usrName, msgText, dateTime);
 	return html;
 }
