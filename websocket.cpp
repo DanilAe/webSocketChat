@@ -11,12 +11,6 @@ webSocket::webSocket(const QUrl url, QObject *parent) : QObject(parent)
 	m_url = url;
 }
 
-void webSocket::onPong(quint64 elTime, QByteArray arr)
-{
-	qDebug() << "Elapsed time: " << elTime;
-	qDebug() << "PayLoad: " << arr;
-}
-
 void webSocket::onConnected()
 {
 	qDebug() << "Connected!";
