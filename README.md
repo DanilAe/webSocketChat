@@ -3,3 +3,4 @@ web-сокет чат на C++, framework: qt <https://www.qt.io/>. Desktop ве
 
 Веб версия: http://62.109.21.96/
 Веб версия на GitHub: https://github.com/EvgeniiR/ws-chat
+Скачать: https://github.com/DanilAe/webSocketChat/releases
